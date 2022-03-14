@@ -11,7 +11,7 @@ class DouyinUser:
         self.__name = name_ele.text
         try:
             location_ele = name_box.find_element_by_class_name("vXvSqSN8")
-            self.__location = location_ele
+            self.__location = location_ele.text
         except Exception as e:
             self.__location = "未知"
         stat_box: WebElement = user_ele.find_element_by_class_name("H7Xy0nwI")

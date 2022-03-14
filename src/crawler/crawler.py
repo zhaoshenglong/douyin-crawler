@@ -2,7 +2,6 @@ import time
 from enum import Enum
 
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.remote import switch_to
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -84,6 +83,7 @@ class DouyinCrawler:
     def scroll_down_until(self, css_selector):
         while True:
             self.driver.execute_script('window.scrollBy(0,500)')
+            time.sleep(0.2)
             try:
                 bottom_div = self.driver.find_elements_by_css_selector(css_selector)
                 if len(bottom_div) > 0:

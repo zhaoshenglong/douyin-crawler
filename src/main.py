@@ -1,9 +1,7 @@
-import time
+import os
 
 from src.crawler.crawler import DouyinCrawler
-from selenium import webdriver
-
-KEYWORDS = ["亚洲"]
+from src.util.reader import read_list
 
 
 def main():
@@ -12,11 +10,15 @@ def main():
     crawler.login()
     print("Login success")
     crawler.to_search()
-    for keyword in KEYWORDS:
+
+    search_keywords = read_list("../region.txt")
+    for keyword in search_keywords:
+        if keyword + '.csv' in os.listdir('../data'):
+            continue
         crawler.search(keyword)
         crawler.scroll_down_until("div.Bllv0dx6")
         all_users = crawler.get_all_user(lambda u: u.nfans > 100000)
-        with open(f"{keyword}_data.csv", "w") as f:
+        with open(f"../data/{keyword}.csv", "w") as f:
             f.writelines(all_users)
     crawler.close()
 
